@@ -273,20 +273,36 @@ foo();
 **α (alpha)**: Rename parameter => translation
 
 ```javascript
-
+const x => x;
+// or
+const y => y;
 ```
 
-**β (beta)**: Apply argument => reduction
+**β (beta)**: Apply argument => reduction, from left to right
 
 ```javascript
-
+(f => x => f(x))(id)(1)
+// replace f on the left with id from first argument
+(x => id(x))(1)
+// replace x on the left with 1 from first (next) argument
+(id(1))
+// replace id with its definition
+(x => x)(1)
+// replace x on the left with 1 from first argument
+1
 ```
 
-**η (eta)**: Cancel parameter => reduction
+**η (eta)**: Cancel parameter => reduction, from right to left
 
 ```javascript
-
+x => y => plus(x)(y)
+// remove y as most right parameter
+x => plus(x)
+// remove x as next right parameter
+plus
 ```
+
+
 
 ## Week 2 - Video
 
@@ -342,3 +358,8 @@ foo();
 ---
 
 ### notes
+
+
+
+### quiz
+
