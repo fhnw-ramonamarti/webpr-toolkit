@@ -283,25 +283,31 @@ const y => y;
 **β (beta)**: Apply argument => reduction, from left to right
 
 ```javascript
-(f => x => f(x))(id)(1)
-// replace f on the left with id from first argument
-(x => id(x))(1)
-// replace x on the left with 1 from first (next) argument
-(id(1))
-// replace id with its definition
-(x => x)(1)
+(
+  (f) => (x) =>
+    f(x)
+)(id)(1)(
+  // replace f on the left with id from first argument
+  (x) => id(x)
+)(1)(
+  // replace x on the left with 1 from first (next) argument
+  id(1)
+)(
+  // replace id with its definition
+  (x) => x
+)(1);
 // replace x on the left with 1 from first argument
-1
+1;
 ```
 
 **η (eta)**: Cancel parameter => reduction, from right to left
 
 ```javascript
-x => y => plus(x)(y)
+(x) => (y) => plus(x)(y);
 // remove y as most right parameter
-x => plus(x)
+(x) => plus(x);
 // remove x as next right parameter
-plus
+plus;
 ```
 
 ## Week 2 - Video
@@ -355,11 +361,78 @@ plus
 
 ## Week 3 - Lesson
 
-### Tips and Tricks
+### Tips and Tricks log level
+
+**Log level**: Use to filter the logged outputs. Show all levels $≥ logLevel$
+
+```javascript
+// states of logging
+const LEVEL_NONE = -1;
+const LEVEL_ERROR = 0;
+const LEVEL_WARN = 1;
+const LEVEL_INFO = 2;
+const LEVEL_LOG = 3;
+const LEVEL_DEBUG = 4;
+
+// current level
+let logLevel = LEVEL_LOG;
+```
+
+long running ausgeführt vor filterung von log level
+strict evaluation
+verzögerung durch funktionsübergabe statt wert übergabe
+auftuf in funktiontion selbst nach if prüfung log level
+
+### Lambda
+
+**Boolean**: expressed with functions and values
+
+```javascript
+// background
+const id = (x) => x;
+const konst = (x) => (y) => x;
+const snd = (x) => (y) => y;
+
+// basic booleans
+const T = konst;
+const F = snd;
+
+// boolean shortcuts
+const and = (p) => (q) => p(q)(p);
+const or = (p) => (q) => p(p)(q);
+const not = (p) => p(F)(T);
+```
+
+**Replication**: reduced expression results in original expression at the beginning
+```javascript
+// background 
+const M = ƒ => ƒ(ƒ);
+const Y = M(M);
+
+// reduction of Y
+Y = M(M)
+// replace M
+(ƒ => ƒ(ƒ)(ƒ => f(ƒ)))
+// α transition - second () ƒ to g
+(ƒ => ƒ(ƒ)(g => g(g)))
+// β reduction - g(g) for all ƒ in first ()
+(g => g(g)(g => g(g)))
+// α transition - all g to ƒ
+(ƒ => ƒ(ƒ)(ƒ => f(ƒ)))
+```
+**Datatype pair**: two-couple of values
+```javascript
+const pair = a => b => ƒ = f(a)(b);
+const firstname = konst;
+const lastname = snd;
+
+const person = pair("John")("Smith");
+name = pair(firstname) + " " + pair(lastname);
+```
+
 
 
 
 ---
 
 ### quiz
-
