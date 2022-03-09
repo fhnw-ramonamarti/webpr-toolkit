@@ -215,12 +215,14 @@ x // beta normal form
 
 ## Week 2 - Lesson
 
-### Tips consol
+### Tips and Tricks browser consol
 
 **Locs in consol**: call method `inspect()` on a object
 **Console outputs**: `console.__(message)`
 
 - log: normal output
+  - string concat with +: all one string output
+  - parameter passing: split by '–' in output
 - error ❗: Red error message, has filter
 - warn ⚠: Yellow warning message, has filter
 - info ℹ: (Blue) information, has filter
@@ -302,8 +304,6 @@ x => plus(x)
 plus
 ```
 
-
-
 ## Week 2 - Video
 
 ### Lambda Calculus II
@@ -351,15 +351,15 @@ plus
 - Second: `SND = λp.pKI` with javascript `n => p(KI)`
 - Phi / Φ: `Φ = λp.V(SND p)(SUCC (SND p))` with javascript `p => PAIR(SND(p)(SUCC(SND(p))))`
 
+---
+
 ## Week 3 - Lesson
 
----
+### Tips and Tricks
+
+
 
 ---
-
-### notes
-
-
 
 ### quiz
 
