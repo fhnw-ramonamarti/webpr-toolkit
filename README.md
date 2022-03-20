@@ -283,19 +283,13 @@ const y => y;
 **β (beta)**: Apply argument => reduction, from left to right
 
 ```javascript
-(
-  (f) => (x) =>
-    f(x)
-)(id)(1)(
-  // replace f on the left with id from first argument
-  (x) => id(x)
-)(1)(
-  // replace x on the left with 1 from first (next) argument
-  id(1)
-)(
-  // replace id with its definition
-  (x) => x
-)(1);
+((f) => (x) => f(x))(id)(1)
+// replace f on the left with id from first argument
+((x) => id(x))(1)
+// replace x on the left with 1 from first (next) argument
+id(1)
+// replace id with its definition
+(x) => x)(1);
 // replace x on the left with 1 from first argument
 1;
 ```
@@ -390,11 +384,11 @@ auftuf in funktiontion selbst nach if prüfung log level
 ```javascript
 // background
 const id = (x) => x;
-const konst = (x) => (y) => x;
+const fst = (x) => (y) => x; //konst
 const snd = (x) => (y) => y;
 
 // basic booleans
-const T = konst;
+const T = fst;
 const F = snd;
 
 // boolean shortcuts
@@ -404,35 +398,69 @@ const not = (p) => p(F)(T);
 ```
 
 **Replication**: reduced expression results in original expression at the beginning
+
 ```javascript
-// background 
-const M = ƒ => ƒ(ƒ);
+// background
+const M = (ƒ) => ƒ(ƒ);
 const Y = M(M);
 
 // reduction of Y
-Y = M(M)
-// replace M
-(ƒ => ƒ(ƒ)(ƒ => f(ƒ)))
-// α transition - second () ƒ to g
-(ƒ => ƒ(ƒ)(g => g(g)))
-// β reduction - g(g) for all ƒ in first ()
-(g => g(g)(g => g(g)))
-// α transition - all g to ƒ
-(ƒ => ƒ(ƒ)(ƒ => f(ƒ)))
+Y = M(M)(
+  // replace M
+  (ƒ) => ƒ(ƒ)((ƒ) => f(ƒ))
+)(
+  // α transition - second () ƒ to g
+  (ƒ) => ƒ(ƒ)((g) => g(g))
+)(
+  // β reduction - g(g) for all ƒ in first ()
+  (g) => g(g)((g) => g(g))
+)(
+  // α transition - all g to ƒ
+  (ƒ) => ƒ(ƒ)((ƒ) => f(ƒ))
+);
 ```
-**Datatype pair**: two-couple of values
+
+**Accessor functions**: lazy until applied
+
+- fst/ True
+- snd/ False
+
+**Datatype pair**: two-couple of values, immutable
+
 ```javascript
-const pair = a => b => ƒ = f(a)(b);
-const firstname = konst;
+const pair = (a) => (b) => (ƒ) => f(a)(b);
+const firstname = fst;
 const lastname = snd;
 
 const person = pair("John")("Smith");
 name = pair(firstname) + " " + pair(lastname);
 ```
 
+**Datatype triple**: three-couple of values, immutable
+
+```javascript
+const triple = (a) => (b) => (c) => pair(par(a)(b))(c);
+const firstname = (p) => fst(fst(p));
+const lastname = (p) => snd(fst(p));
+const age = (p) => snd(p);
+
+const person = triple("John")("Smith")(30);
+name = triple(firstname) + " " + triple(lastname) + ", Alter " + triple(age);
+```
+
+**Complement**: take one from two functions
+
+```javascript
+const left = (a) => (f) => (g) => f(x);
+const right = (a) => (f) => (g) => g(x);
+const either = (e) => (f) => (g) => e(f)(g);
+
+// eta reduction
+const either = id;
+
+// usage
+// functionWithParameters contains functions left and right
+functionMayGoWrong(leftFunction /*  bad case */)(rightFunction /* good case */);
+```
 
 
-
----
-
-### quiz
