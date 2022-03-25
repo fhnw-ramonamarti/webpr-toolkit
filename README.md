@@ -463,4 +463,147 @@ const either = id;
 functionMayGoWrong(leftFunction /*  bad case */)(rightFunction /* good case */);
 ```
 
+## Week 4 - Lesson
 
+### Tips and Tricks spread operator
+
+**Spread array**: unbox array elements, just take the values without brackets with operator `...arrayName`
+
+```javascript
+let x = [1, 2, 3];
+// array x is boxed [[1, 2, 3], 4, 5, 6]
+let y = [x, 4, 5, 6];
+// array x is unboxed or spread [1, 2, 3, 4, 5, 6]
+let z = [...x, 4, 5, 6];
+// copy all values in new array [1, 2, 3]
+let copyX = [...x];
+// use with var-arg functions "1 – 2 – 3"
+console.log(...x);
+```
+
+**Constructor of object**: different defining ways
+
+- arrays with `[]`
+- objects with `{}`
+- numbers with a digit (`0`) or `Number()`
+- literal for functions with curried style `var => /* do sth */`
+
+### Higher-order functions
+
+**Map**: execute a function or do a unary operation on each value, partial application
+
+- outer type stays same (array, object, function,...)
+- inner type can change (string -> number,...)
+- number elements stay same
+
+```javascript
+const times = (a) => (b) => a * b;
+const twoTimes = times(2);
+
+listVar.map((x) => times(2)(x));
+// eta reduction
+listVar.map(times(2));
+// alpha transition
+listVar.map(twoTimes);
+```
+
+**Filter**: remove elements not fitting to a condition, partial application
+
+- outer type stays same (array, object, function,...)
+- inner type stays same
+- number elements can change
+
+```javascript
+const odd = (x) => x % 2 === 1;
+
+listVar.filter((x) => x % 2 === 1);
+// alpha transition
+listVar.filter((x) => odd(x));
+// eta reduction
+listVar.filter(odd);
+```
+
+**Reduce**: do a binary operation on all values, un-partial application
+
+- outer type can disappear
+- inner type can change (strings -> number,...)
+- number elements can change
+
+```javascript
+const plus = (acc, cur) => acc + cur;
+
+listVar.reduce((acc, cur) => acc + cur);
+// alpha transition
+listVar.reduce(plus);
+
+// with initial value 0
+listVar.reduce(plus, 0);
+```
+
+**Initial value**: avoids error for empty lists, normally the neutral element of type operation
+
+### Function types
+
+**Literal scope (IIFE)**: (unnamed) function
+
+```javascript
+// definition
+var varName = function optionalName() {
+  // do sth
+};
+
+// usage
+varName();
+// use as callback
+callbackFunction(varName);
+```
+
+**Capturing scope (closure)**: private variables for functions, boxed functions
+
+```javascript
+// definition
+const func = (function (paramsOuter) {
+  let localVar = value;
+  return function (paramsInner) {
+    // do sth
+  };
+})(argsOuter);
+
+// usage
+func(argsInner);
+```
+
+**Higher-order functions**: takes other function as arguments or returns function
+
+```javascript
+// definition
+function callbackFunction(callbackFunc) {
+  // do sth
+}
+// or
+function callbackFunction2() {
+  // do sth
+  return func;
+}
+
+// usage
+callbackFunction(funcName);
+// or
+callbackFunction2()(argsForFunc);
+```
+
+**Constructors (returning functions)**: creates a self defined object, uses keyword `new` in call
+
+```javascript
+// definition
+function Object() {
+  this.attribute = value;
+}
+
+// usage
+const obj = new Object();
+```
+
+---
+
+### quiz
