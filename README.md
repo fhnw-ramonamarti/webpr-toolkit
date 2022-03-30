@@ -604,6 +604,84 @@ function Object() {
 const obj = new Object();
 ```
 
+## Week 5 - Lesson
+
+### Tips and Tricks semicolon
+
+**New line on browser console**: Shift + Enter
+**Auto semicolon insert**: not possible if situation not clear
+
+```javascript
+console
+  .log() // no ;
+  [(1, 2, 3)].map((x) => console.log(x));
+// outputs error undefined not an object
+```
+
+Reason: console.log returns nothing (undefined) and without semicolon line are sicked together as one and ants to call 3 index of undefined\
+
+### Tips and Tricks strings and escaping
+
+**Strings**: can be written in `'` or `"`
+
+```javascript
+let a = 5;
+// string with ` for variable injection
+`Value of a = ${a}`;
+```
+
+**String escaping**: special characters need to be escaped because they hab a meaning
+
+```javascript
+// string with '
+"it's here";
+// escape general with \
+"new line \n or word bound \b";
+// escape \ with \
+"backslash \\";
+```
+
+**Regular expression**: define how a string has to look
+
+```javascript
+// as a string with escaping
+'\\bsome expression\\s \\\\'
+// as a regex
+/\bsome expression\s \\/
+```
+
+**String constructor**: creates a string from given parameter and escapes if necessary
+
+```javascript
+String(/\bsome expression\s \\/);
+// returns '\\bsome expression\\s \\\\'
+```
+
+**Literal**: direct use of something => [], {}, 0\
+**Functional**: use of something in a constructor => Array(), Object(), Number()
+
+### Scripting
+
+**Scripting**: evaluating text from file, url, database or user input\
+**Script execution**: in the browser can be modified and harm the system\
+**Characteristics**: interpreted without compiler with best effort approach\
+**Dynamic file addition**: add scripts by writing strings to body tag with another script
+
+```javascript
+// important spit </script> with string concat to not close current script tag
+["function"].forEach((name) => {
+  document.writeln(`<script src="${name}.js"><` + `/script>"`);
+  document.writeln(`<script src="${name}Test.js"><` + `/script>"`);
+});
+```
+
+**Code evaluation**: execute code as written in the function
+
+```javascript
+// functionVar contains string of executable function
+eval(functionVar);
+```
+
 ---
 
 ### quiz
