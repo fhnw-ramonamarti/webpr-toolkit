@@ -675,13 +675,43 @@ String(/\bsome expression\s \\/);
 });
 ```
 
-**Code evaluation**: execute code as written in the function
+**Code evaluation**: execute code as written in the function at current position
 
 ```javascript
 // functionVar contains string of executable function
 eval(functionVar);
 ```
 
+**Functions**: literal `parameters => codeBlock`, functional `Function(parameters, codeBlock)`\
+**Side effects**: Function() change values of global variables => should not happen\
+**Sandbox**: secure evaluating scripts only in browsers given\
+
+**Usage**:
+
+- Automation
+- Business rules
+- Code distribution
+- Text evaluation
+
+## Week 5 - Video
+### this decisions
+- functions with 'new'
+  - yes -> this is new empty object
+  - no -> function with dot (object.func()) called
+    - yes -> this is object before dot
+    - no -> this is global object window
+### this in JS
+- Object methods use object attributes: function do() { this.attribute }
+  - functions cannot access attribute without this. prefix
+  - this refers to object name when calling objectName.attribute
+- Problem when using these functions as callback
+  - 'this' information gets lost
+- Solve callback issue with binding this 
+  - old style: this.func.bind(this); or save this in var and callback in anonymous function
+  - other style: func.call(obj) / func.apply(obj) to pass object for non dot functions
+  - new style: () => this.func; (fat arrow function automatic bind)
+
 ---
 
 ### quiz
+
