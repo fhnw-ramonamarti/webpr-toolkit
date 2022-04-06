@@ -683,7 +683,7 @@ eval(functionVar);
 ```
 
 **Functions**: literal `parameters => codeBlock`, functional `Function(parameters, codeBlock)`\
-**Side effects**: Function() change values of global variables => should not happen\
+**Side effects**: Function() change values of (global) variables, visible that Function() was called => should not happen\
 **Sandbox**: secure evaluating scripts only in browsers given\
 
 **Usage**:
@@ -694,24 +694,92 @@ eval(functionVar);
 - Text evaluation
 
 ## Week 5 - Video
+
 ### this decisions
+
 - functions with 'new'
   - yes -> this is new empty object
   - no -> function with dot (object.func()) called
     - yes -> this is object before dot
     - no -> this is global object window
+
 ### this in JS
+
 - Object methods use object attributes: function do() { this.attribute }
   - functions cannot access attribute without this. prefix
   - this refers to object name when calling objectName.attribute
 - Problem when using these functions as callback
   - 'this' information gets lost
-- Solve callback issue with binding this 
+- Solve callback issue with binding this
   - old style: this.func.bind(this); or save this in var and callback in anonymous function
   - other style: func.call(obj) / func.apply(obj) to pass object for non dot functions
   - new style: () => this.func; (fat arrow function automatic bind)
 
+## Week 6 - Lesson
+
+### Tips and Tricks Array.from() and optional args
+
+**Array.from()**: method to create an array out of the given parameter as return value\
+
+- string as parameter: string gets split in characters as elements
+- object with length as parameter: fill array with length undefined elements
+  - map result with function: to fill elements with values
+  - callback function as second parameter: to fill elements with values easier, callback is optional
+
+### Objects
+
+**Object**: data structures with attributes and methods to access / manage the data
+
+- Open dynamic object: not safe because not obvious structure (this not clear)
+
+```javascript
+const obj {
+  attribute1: value1,
+  attribute2: value2,
+  getName: function() {
+    return this.attribute1 + " " + this.attribute2;
+  }
+}
+```
+
+- Closed explicit object: safe with no unclear this -> not a class
+
+```javascript
+function Class(param1, param2) {
+  let attribute1 = param1;
+  let attribute2 = param2;
+  return {
+    getName: function () {
+      return attribute1 + " " + attribute2;
+    },
+  };
+}
+// usage: Class(value1, value2)
+```
+
+- Mixed classified object: IIFE requires new for this usage, has a constructor -> is a prototype (class)
+
+```javascript
+const Class = (()=>{
+  function Class(param1, param2) {
+    this.attribute1 = param1;
+    this.attribute2 = param2;
+  }
+  Class.prototype.getName: function () {
+    return this.attribute1 + " " + this.attribute2;
+  };
+  return Class;
+})();
+// usage: new Class(value1, value2)
+// obj instanceof Class possible
+```
+
+**Object dereference operator**: . between object and called attribute/ method\
+**Prototype**: type classification for object to manage shared properties\
+**new keyword**: creates runtime scope by calling the constructor function (no lambda), sets prototype
+
+## Week 7 - Lesson
+
 ---
 
 ### quiz
-
