@@ -765,7 +765,7 @@ const Class = (()=>{
     this.attribute1 = param1;
     this.attribute2 = param2;
   }
-  Class.prototype.getName: function () {
+  Class.prototype.getName = function () {
     return this.attribute1 + " " + this.attribute2;
   };
   return Class;
