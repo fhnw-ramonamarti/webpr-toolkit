@@ -830,7 +830,7 @@ class ClassName {
     this.property = parameter;
   }
   functionName(parameters) {
-    // do things
+    // do sth
   }
 }
 
@@ -880,8 +880,52 @@ Rule: Objects ar not functions in JS but in computer science\
 
 ## Week 7 - Composing Software Article
 
+1. split complex problems into small problems
+2. solve small problems with easy solutions
+3. combine easy solutions for the complex problem
+
+**Composing Functions**: function using the output of an other function as argument -> (f°g)(x) = f(g(x))
+
+```javascript
+const f = x => /* do sth */;
+const g = x => /* do sth */;
+
+const composition = x => {
+  return f(g(x));
+};
+composition(arg);
+// or with a promise
+Promise.resolve(arg)
+  .then(f)
+  .then(g)
+  .then(val => /* val contains result */);
+```
+
+Rule: chaining is composing\
+\
+**Pipeline**: execute functions after each other and use output as next argument. Syntax without function keyword and arrow (=>)
+
+```javascript
+import pipe from "lodash/fp/flow";
+const compose = pipe(g, f);
+compose(arg);
+```
+\
+Rules: 
+- pregnant code expressions = more comprehension
+- less code = less bugs
+- composition before class inheritance
+- inheritance/ classes is a composed object
+
+**Composite datatype**: objects, arrays, sets, maps, not primitive types
+```javascript
+const fullName = {
+  firstName,
+  lastName
+};
+```
+**Compositional relationships**: delegation (state, strategy, and visitor patterns), acquaintance (referenced objects), aggregation (DOM children)
 
 ---
 
 ### quiz
-
