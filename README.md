@@ -760,7 +760,7 @@ function Class(param1, param2) {
 - Mixed classified object: IIFE requires new for this usage, has a constructor -> is a prototype (class)
 
 ```javascript
-const Class = (()=>{
+const Class = (() => {
   function Class(param1, param2) {
     this.attribute1 = param1;
     this.attribute2 = param2;
@@ -780,6 +780,108 @@ const Class = (()=>{
 
 ## Week 7 - Lesson
 
+### Tips and Tricks shortcuts
+
+**Objects and properties**: if variable name is same as property name, property name can be left away
+
+```javascript
+let x = 1;
+
+// long version
+const o = { x: x };
+
+// short
+const obj = { x };
+
+// usage
+obj.x;
+```
+
+**Objects and functions**: if function name (as a property) is same as property name, property name and function keyword can be left away
+
+```javascript
+// long version
+const o = {
+  foo: function foo() {
+    return 1;
+  },
+};
+
+// short
+const obj = {
+  foo() {
+    return 1;
+  },
+};
+
+// call/ usage
+obj.foo();
+```
+
+### Classes
+
+**class keyword**: syntactic sugar for mixed classified objects
+
+- constructor: to set the properties of an object directly
+
+```javascript
+class ClassName {
+  constructor(parameter) {
+    this.property = parameter;
+  }
+  functionName(parameters) {
+    // do things
+  }
+}
+
+// usage
+const p = new ClassName(value);
+// p instance of ClassName
+```
+
+**extends keyword**: syntactic sugar for creating a prototype chain
+
+- chain: shows inheritance of prototypes (in some kind)
+- super: to set the properties of the inherited class
+
+```javascript
+class SubClass extends ClassName {
+  constructor(parameter, parameter2) {
+    super(parameter);
+    this.subProperty = parameter2;
+  }
+  subFunctionName(parameters) {
+    // do things
+  }
+}
+
+// usage
+const s = new SubClass(value, value2);
+// s instance of SubClass instance of ClassName
+```
+
+Rule: every object extends prototype Object\
+**Functions**:
+
+- are objects
+- has a name
+- is prototype
+- has prototype property
+- has constructor
+
+Rule: Objects ar not functions in JS but in computer science\
+**Prototypes**: modifiable and extendable objects. It can be changed at runtime\
+\
+**Dispatch**: properties first searched in the object and than in their prototypes
+
+- Static: based on the static type
+- Dynamic: based on the runtime type
+- Dynamic by name: chain of responsibility
+
+## Week 7 - Composing Software Article
+
+
 ---
 
 ### quiz
+
