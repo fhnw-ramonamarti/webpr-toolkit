@@ -910,22 +910,78 @@ import pipe from "lodash/fp/flow";
 const compose = pipe(g, f);
 compose(arg);
 ```
+
 \
-Rules: 
+Rules:
+
 - pregnant code expressions = more comprehension
 - less code = less bugs
 - composition before class inheritance
 - inheritance/ classes is a composed object
 
 **Composite datatype**: objects, arrays, sets, maps, not primitive types
+
 ```javascript
 const fullName = {
   firstName,
-  lastName
+  lastName,
 };
 ```
+
 **Compositional relationships**: delegation (state, strategy, and visitor patterns), acquaintance (referenced objects), aggregation (DOM children)
 
----
+## Week 8 - Lesson
 
-### quiz
+### Tips and Tricks logging objects
+
+**Logging with property names**: give an object to the log function instead of values
+
+```javascript
+let x = 1;
+let y = 2;
+
+console.log({ x, y });
+// output { x: 1, y: 2 }
+```
+
+**Destructor**: get all properties from object without using object dot notation\
+**Logging parameter properties**: give a destructed object as parameter to the function
+
+```javascript
+// param version
+let foo = (param) => console.log(param.x, param.y);
+
+// destructor version
+let foo = ({ x, y }) => console.log(x, y);
+```
+
+### Moves
+
+- Have to be learnt
+- Adapt move combinations for situations
+- Program collaborative
+
+**Tasks**:
+
+1. Improve tests: structure, explained reports for failed tests
+2. Todo list: expected results, simplest way to solution
+
+**Steps**: 0. Explorer: feasibility, edge cases, time-boxed
+
+1. Start at the end: start static with all in one html file, add dynamic sketch when static sketch works
+
+- dynamic sketches: JS, CSS
+
+2. Extract: change static values to variables and repetitions to mappings or loops
+3. Abstract: give names to extracted concepts or revert changes, concepts work themselves and in combinations
+4. Reorganize: organize and refactor for future, prepare for release
+5. Release: on its own standing solution with test, documentation and examples
+6. Retrospective: look for good and bad habits/ goings
+
+## Week 9 - Lesson
+
+### Tips and tricks
+
+
+### MVC
+
