@@ -980,8 +980,104 @@ let foo = ({ x, y }) => console.log(x, y);
 
 ## Week 9 - Lesson
 
-### Tips and tricks
+### Tips and tricks JS doc
+
+**Parameter types**: default type is any. The definition of the specific type can be added in the JS doc, so that other arguments are not allowed any more.
+
+```javascript
+/**
+ * log to the console
+ * @function
+ * @param {!string} message mandatory text to printing to console
+ * @return void
+ * @example
+ *        log("foo");
+ **/
+const log = (message) => console.log(message);
+```
+
+Description:
+
+- `@function`: defines that the following code is a function
+- `@param`: defines the parameter and with `{type}` the allowed type(s) of the arguments
+  - `{!type}`: the parameter is mandatory of this type
+  - `{type | type2}`: the parameter has to fullfil one type of the listed
+  - `{'value' | 'value2'}`: the parameter can only be one of the values
+  - `{...type}`: varargs type to give multiple arguments to the function, which can be accessed by the 'arguments' array
+- `@return`: defines the value calculated with a type (without {})
+- `@example`: show how the usage of the code
+- `@template`: is used if the type T of parameter/return should be generic
+- `@throws`: defines the exception if the function end with an exception
+- more: <https://jsdoc.app>
+
+### MVC - Patterns
+
+Pattern - **High order function**: do prework -> do callback -> do postwork. Uses execute around method to do work\
+**Resource Handling**: define handling one and use it with a callback to not forget a step
+
+- Resources: files, databases, transactions, url loading, rest service call, error containment, cpu time, threads
+
+```javascript
+// example file
+const fileHandle = (name, callback) => {
+  // open file
+  try {
+    callback(file); // read or write file
+  } catch (e) {
+    // handle exception
+  }
+  // close file
+};
+
+// example database
+const databaseHandle = (name, callback) => {
+  // open database connection
+  try {
+    callback(database); // execute query statement
+  } catch (e) {
+    // handle exception
+  }
+  // close database connection
+};
+```
+
+**UI framework**: knowing what it does & how it does it & why this way before using it\
+**Milestones**: 0. running program with reasonable test amount which all run ok
+
+1. reorganize, separate unessential and improve clarity (responsibilities, dependencies, sequence) with abstraction
+2. separate todo operations from todo display -> improve clarity of one single todo change / many (list of) todo change with observable list usage
+3. model-view-control separated
+4. all views separated
+
+**Observable**: used to observe values by listening to changes and notify all listeners. Collection examples are array, list and set.
+
+```javascript
+const Observable = (value) => {
+  const listeners = [];
+  return {
+    onChange: (callback) => listeners.push(callback),
+    getValue: () => value,
+    setValue: (val) => {
+      if (value === val) return;
+      value = val;
+      listeners.forEach((notify) => notify(val));
+    },
+  };
+};
+```
+
+**Parsing to numbers**: different ways, but many are problematic. Use `Number()` constructor!\
+**MVC**: Model (what to show), View (how to show), Controller (manages view and data)
+
+## Week 10 - Lesson
+
+### Tips and tricks 
 
 
-### MVC
+### Async
 
+
+
+---
+
+### quiz
