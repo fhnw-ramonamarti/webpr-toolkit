@@ -1,5 +1,4 @@
-// stand-in for an asynchronous service
-
+// Random texts
 const fortunes = [
     "Do the WebPr Homework",
     "Care for the JavaScript Toolbox",
@@ -8,6 +7,7 @@ const fortunes = [
     "Do the dataflow excel challenge!"
 ];
 
+// Service to deliver random text
 function fortuneService(whenDone) {
     setTimeout(
         () => whenDone(fortunes[Math.floor((Math.random() * fortunes.length))]),

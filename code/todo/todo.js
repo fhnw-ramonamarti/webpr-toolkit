@@ -1,9 +1,11 @@
 // requires ../observable/observable.js
 
+// Controller to manage todos
 const TodoController = () => {
 
-    const Todo = () => {                                // facade
-        const textAttr = Observable("...");            // we current don't expose it as we don't use it elsewhere
+    // Todo struct with text and completion state
+    const Todo = () => {
+        const textAttr = Observable("");
         const doneAttr = Observable(false);
         return {
             getDone: doneAttr.getValue,
@@ -15,16 +17,21 @@ const TodoController = () => {
         }
     };
 
-    const todoModel = ObservableList([]); // observable array of Todos, this state is private
+    // Model to observe todos
+    const todoModel = ObservableList([]);
 
+    // Add new sync
     const addTodo = () => {
         const newTodo = Todo();
         todoModel.add(newTodo);
         return newTodo;
     };
+
+    // Scheduler to handle order
     const scheduler = Scheduler();
+
+    // Add random async with scheduler
     const addFortuneTodo = button => {
-        // button.disabled = true; // double click protection
         const newTodo = Todo();
         todoModel.add(newTodo);
         newTodo.setText("...");
@@ -32,12 +39,9 @@ const TodoController = () => {
         scheduler.add(ok => {
             fortuneService(text => {
                 newTodo.setText(text);
-                // button.disabled = false; // double click protection done
                 ok();
             });
         });
-
-
         return newTodo;
     };
 
@@ -53,13 +57,10 @@ const TodoController = () => {
     }
 };
 
-
-// View-specific parts
-
+// View-specific parts of todo table
 const TodoItemsView = (todoController, rootElement) => {
-
     const render = todo => {
-
+        // HTML content of a todo
         function createElements() {
             const template = document.createElement('DIV'); // only for parsing
             template.innerHTML = `
@@ -69,48 +70,51 @@ const TodoItemsView = (todoController, rootElement) => {
             `;
             return template;
         }
+
+        // Extract HTML elements 
         const container = createElements();
         const [deleteButton, inputElement, checkboxElement] = container.children;
 
+        // Add event handlers to HTML elements
         checkboxElement.onclick = _ => todo.setDone(checkboxElement.checked);
         deleteButton.onclick = _ => todoController.removeTodo(todo);
 
+        // Handle remove
         todoController.onTodoRemove((removedTodo, removeMe) => {
             if (removedTodo !== todo) return;
             rootElement.removeChild(container);
             removeMe();
         });
 
+        // Handle change
         todo.onTextChanged(_ => inputElement.value = todo.getText());
 
+        // Handle add
         rootElement.appendChild(container);
     };
 
-    // binding
-
+    // Binding todo controller with content to render
     todoController.onTodoAdd(render);
-
-    // we do not expose anything as the view is totally passive.
 };
 
+// View-specific parts of all task text
 const TodoTotalView = (todoController, numberOfTasksElement) => {
-
+    // Content of all task text 
     const render = () =>
         numberOfTasksElement.innerText = "" + todoController.numberOfTodos();
 
-    // binding
-
+    // Binding todo controller with content to render
     todoController.onTodoAdd(render);
     todoController.onTodoRemove(render);
 };
 
+// View-specific parts of opened task text
 const TodoOpenView = (todoController, numberOfOpenTasksElement) => {
-
+    // Content of task opened text
     const render = () =>
         numberOfOpenTasksElement.innerText = "" + todoController.numberOfopenTasks();
 
-    // binding
-
+    // Binding todo controller with content to render
     todoController.onTodoAdd(todo => {
         render();
         todo.onDoneChanged(render);
