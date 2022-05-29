@@ -1,34 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Todos</title>
     <style>
         body {
-            background: burlywood;
+            background: lightgreen;
             font-family: "Helvetica Neue", "sans-serif";
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            font-size: 20px;
         }
-        div {
-            padding-left: 1em;
+
+        .table {
+            margin: 2rem 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .table [type='checkbox'] {
+            padding: 1rem;
+        }
+
+        button {
+            padding: .5rem 1rem;
+            background-color: darkblue;
+            color: aliceblue;
+            outline: none;
+            border: none;
+        }
+
+        .table button {
+            padding: .2rem .5rem;
+            background-color: red;
+            color: white;
         }
     </style>
 </head>
-<body onload="startTodo()">
 
-<button onclick="addTodo()">Add Todo</button>
+<body>
 
-<table>
-    <thead></thead>
-    <tbody id="todoContainer">
+    <main>
+        <h1>Todo List</h1>
 
-    </tbody>
-</table>
+        <div class="holder">
+            <!-- Adding buttons -->
+            <button id="plus" autofocus onclick="todoController.addTodo();"> Neu </button>
+            <button id="fortune" onclick="todoController.addFortuneTodo(this);"> Random </button>
 
-<div>Number of Tasks: <span id="numberOfTasks">0</span></div>
-<div>Open Tasks: <span id="openTasks">0</span></div>
+            <!-- Task list container -->
+            <div class="table" id="todoContainer"></div>
 
+            <!-- Task completion state -->
+            <div>Tasks: <span id="openTasks">0</span>/<span id="numberOfTasks">0</span> erledigt</div>
+        </div>
+    </main>
 
-<script src="todo.js"></script>
+    <script src="observable.js"></script>
+    <script src="fortuneService.js"></script>
+    <script src="todo.js"></script>
+
+    <script>
+        const todoController = TodoController();
+
+        // Init views with controller
+        TodoItemsView(todoController, document.getElementById('todoContainer'));
+        TodoTotalView(todoController, document.getElementById('numberOfTasks'));
+        TodoOpenView(todoController, document.getElementById('openTasks'));
+
+        todoController.addTodo();
+    </script>
 
 </body>
 
