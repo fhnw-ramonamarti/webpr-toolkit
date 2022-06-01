@@ -1188,7 +1188,7 @@ window.deviceOrientation().then(console.log);
 3. Dependency on former results - two actions depend on the same action which only should be executed once => implicit coordination with data flow variable
 
 **Scheduler**: Queue of functions which are locked until the callbacks unlock them\
-**Data flow variables**:
+**Data flow variables**: Set the variable value if not already set. Lazy mode by not setting the value but returning it in a function.
 
 ## Week 12 - Lesson
 
