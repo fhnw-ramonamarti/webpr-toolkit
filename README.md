@@ -1195,6 +1195,7 @@ window.deviceOrientation().then(console.log);
 ### Tips and tricks array functions
 
 **Array functions with index**:
+
 ```javascript
 [1, 2, 3, 4].map((it, inx) => it + ": " + inx);
 
@@ -1202,14 +1203,18 @@ window.deviceOrientation().then(console.log);
 ```
 
 Reduce trick with filter: sum of all odd numbers is a square number.
+
 ```javascript
 [1, 2, 3, 4].reduce((acc, cur) => acc + cur, 0);
 
 // square numbers
-[1, 2, 3, 4].filter((it, inx) => inx % 2 !== 0).reduce((acc, cur) => acc + cur, 0);
+[1, 2, 3, 4]
+  .filter((it, inx) => inx % 2 !== 0)
+  .reduce((acc, cur) => acc + cur, 0);
 ```
 
 **Array check functions**: check the content of an array.
+
 ```javascript
 // true when are all fitting
 [1, 2, 3, 4].every((it, inx) => condition);
@@ -1220,8 +1225,54 @@ Reduce trick with filter: sum of all odd numbers is a square number.
 
 ### Modules
 
----
+**Modules**: to organize code, clear dependencies
 
-### quiz
+- Avoiding errors: globals, scoping, namespace
+- Distinction: packet manager, build tool
+  - Legacy: Module systems, module loader/ bundler
+- Properties: use of `import` or `export`
+- Include: async, transitive, with URI format recommended
 
+```html
+<!-- defer by default due to type module -->
+<script src="relativePath/file.js" type="module"></script>
+<!-- or -->
+<script>
+  // promise value
+  import("relativePath/file.js").then( mod => ... );
+</script>
+```
+
+**Imports variants**:
+
+```javascript
+import "module-name";
+import defaultExport from "module-name";
+import * as name from "module-name";
+import { export } from "module-name";
+import { export as alias } from "module-name";
+import { export1 , export2 } from "module-name";
+var promise = import("module-name");
+```
+
+**Export variants**: all read-only and singletons
+
+```javascript
+export { name1, name2, ..., nameN };
+export function FunctionName(){...}
+export const name1, name2, ..., nameN;
+export default expression;
+export { name1 as default, ... };
+export * from ...;
+export { name1, name2, ..., nameN } from ...;
+```
+
+**Implicit `use strict`**: exports are read-only, no global objects/this/ hoisting\
+**Implicit `defer`**: `document.writeln()` no more useful\
+**SOP**: Same origin policy, file system as a `null` origin, all js files should come from the same project directory path.
+- Possible ways to avoid: browsers dev mode, local webserver, bundler to execute sync, browser in debug mode
+
+## Week 13 - Lesson
+
+### Transpilers
 
