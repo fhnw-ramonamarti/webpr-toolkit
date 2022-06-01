@@ -1181,12 +1181,41 @@ window.deviceOrientation().then(console.log);
 
 ### DataFlow
 
+**Async coordination**:
+
+1. No coordination - all actions independent => nothing to do
+2. Sequence (side effects) - next action only starts when previous is finished => delegate coordination with scheduler
+3. Dependency on former results - two actions depend on the same action which only should be executed once => implicit coordination with data flow variable
+
+**Scheduler**: Queue of functions which are locked until the callbacks unlock them\
+**Data flow variables**:
+
 ## Week 12 - Lesson
 
-### Tips and tricks
+### Tips and tricks array functions
 
+**Array functions with index**:
 ```javascript
+[1, 2, 3, 4].map((it, inx) => it + ": " + inx);
 
+[1, 2, 3, 4].filter((it, inx) => inx % 2 !== 0);
+```
+
+Reduce trick with filter: sum of all odd numbers is a square number.
+```javascript
+[1, 2, 3, 4].reduce((acc, cur) => acc + cur, 0);
+
+// square numbers
+[1, 2, 3, 4].filter((it, inx) => inx % 2 !== 0).reduce((acc, cur) => acc + cur, 0);
+```
+
+**Array check functions**: check the content of an array.
+```javascript
+// true when are all fitting
+[1, 2, 3, 4].every((it, inx) => condition);
+
+// true when at least one is fitting
+[1, 2, 3, 4].some((it, inx) => condition);
 ```
 
 ### Modules
@@ -1194,3 +1223,5 @@ window.deviceOrientation().then(console.log);
 ---
 
 ### quiz
+
+
