@@ -16,8 +16,7 @@
 <body>
     <script>
         ['function'].forEach(name => {
-            document.writeln(`<script src="${name}.js"><` + `/script>"`);
-            document.writeln(`<script src="${name}Test.js"><` + `/script>"`);
+            document.writeln(`<script src="${name}Test.js" type="module"><` + `/script>`);
         });
     </script>
 
