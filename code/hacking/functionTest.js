@@ -4,7 +4,7 @@
 // requires ./function.js
 
 // imports
-import { lambdaFun1, lambdaFun2, lambdaFun3, lambdaFun4, any, hasNoReturn, hasReturn } from "./function";
+import { lambdaFun1, lambdaFun2, lambdaFun3, lambdaFun4, any, hasNoReturn, hasReturn } from "./function.js";
 
 // IIFE notation
 (function () {
