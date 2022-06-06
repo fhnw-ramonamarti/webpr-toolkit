@@ -1,7 +1,7 @@
 /**
  * @module functionTest offers tests for the function module
  */
-// requires function.js
+// requires ./function.js
 
 // imports
 import { lambdaFun1, lambdaFun2, lambdaFun3, lambdaFun4, any, hasNoReturn, hasReturn } from "./function";

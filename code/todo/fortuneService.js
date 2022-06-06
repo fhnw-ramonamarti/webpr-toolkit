@@ -1,5 +1,8 @@
+/**
+ * @module fortuneService offers a fortune service
+ */
 // Random texts
-const fortunes = [
+export const fortunes = [
     "Do the WebPr Homework",
     "Care for the JavaScript Toolbox",
     "Watch the recommended videos",
@@ -8,7 +11,7 @@ const fortunes = [
 ];
 
 // Service to deliver random text
-function fortuneService(whenDone) {
+export function fortuneService(whenDone) {
     setTimeout(
         () => whenDone(fortunes[Math.floor((Math.random() * fortunes.length))]),
         Math.floor((Math.random() * 3000))

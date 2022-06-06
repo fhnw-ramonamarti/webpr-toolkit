@@ -1,9 +1,14 @@
-// requires ../observable/observable.js
+// requires ./fortuneService.js
+// requires ./observable.js
 
-// Controller to manage todos
+// imports 
+import { fortuneService } from "./fortuneService";
+import { Observable, ObservableList } from "./observable";
+
+// Controller to manage todo tasks
 const TodoController = () => {
 
-    // Todo struct with text and completion state
+    // The todo struct with text and completion state
     const Todo = () => {
         const textAttr = Observable("");
         const doneAttr = Observable(false);
@@ -46,8 +51,8 @@ const TodoController = () => {
     };
 
     return {
-        numberOfTodos: todoModel.count,
-        numberOfopenTasks: () => todoModel.countIf(todo => !todo.getDone()),
+        numberOfTodo: todoModel.count,
+        numberOfOpenTasks: () => todoModel.countIf(todo => !todo.getDone()),
         addTodo: addTodo,
         addFortuneTodo: addFortuneTodo,
         removeTodo: todoModel.del,
@@ -121,5 +126,3 @@ const TodoOpenView = (todoController, numberOfOpenTasksElement) => {
     });
     todoController.onTodoRemove(render);
 };
-
-

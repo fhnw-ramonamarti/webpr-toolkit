@@ -1,5 +1,8 @@
+/**
+ * @module observable offers functions to observe things
+ */
 // Observe values on their changes
-const Observable = value => {
+export const Observable = value => {
     const listeners = [];
     return {
         onChange: callback => {
@@ -17,7 +20,7 @@ const Observable = value => {
 };
 
 // List for all listeners and handlers to notice changes
-const ObservableList = list => {
+export const ObservableList = list => {
     const addListeners = [];
     const delListeners = [];
     const removeAt = array => index => array.splice(index, 1);
@@ -44,7 +47,7 @@ const ObservableList = list => {
 };
 
 // Execute asynchronous tasks in strict sequence
-const Scheduler = () => {
+export const Scheduler = () => {
     let inProcess = false;
     const tasks = [];
     
