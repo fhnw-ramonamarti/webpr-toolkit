@@ -1142,9 +1142,9 @@ const processEven = i => new Promise(
 );
 ```
 
-Auto promotion: non promise return values are automatically saved in the parameter variable, and gets wrapped in a new promise. \
+Auto promotion: non promise return values are automatically saved in the parameter variable, and gets wrapped in a new promise. 
 
-**Synchronous**: all tasks are executed in the code order after each other.\
+**Synchronous**: all tasks are executed in the code order after each other.
 
 **Asynchronous**: tasks can execute parallel and the resulting order is not given.
 
