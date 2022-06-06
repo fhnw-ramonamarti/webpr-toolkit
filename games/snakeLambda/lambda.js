@@ -1,17 +1,21 @@
+/**
+ * @module lambda offers the main lambda expressions.
+ */
 
 // atoms
-const id    = x =>      x;
-const konst = x => y => x;
+export const id = x => x;
+export const constF = x => y => x;
 
+// booleans
+export const F = constF(id);
+export const T = constF;
 
-// derived
-const F = konst (id);
-const T = konst;
+// elements
+export const pair = x => y => f => f(x)(y);
+export const fst = p => p(T);
+export const snd = p => p(F);
 
-const pair = x => y => f => f(x)(y);
-const fst  = p => p(T);
-const snd  = p => p(F);
-
-const Left   = x => f => g => f(x);
-const Right  = x => f => g => g(x);
-const either = e => f => g => e (f) (g);
+// one of some elements
+export const Left = x => f => g => f(x);
+export const Right = x => f => g => g(x);
+export const either = e => f => g => e(f)(g);

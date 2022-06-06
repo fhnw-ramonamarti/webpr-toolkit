@@ -1,16 +1,23 @@
+/**
+ * @module snake offers variables and functions to create a snake game.
+ */
+
+// imports
+import { fst, snd, pair, Left, Right, either } from "./lambda";
+
 // pairs of x and y delta for directions
-const north = pair(0)(-1);
-const east = pair(1)(0);
-const south = pair(0)(1);
-const west = pair(-1)(0);
+export const north = pair(0)(-1);
+export const east = pair(1)(0);
+export const south = pair(0)(1);
+export const west = pair(-1)(0);
 
-let direction = north;
+export let direction = north;
 
-const clockwise = [north, east, south, west, north];
-const countercw = [north, west, south, east, north];
+export const clockwise = [north, east, south, west, north];
+export const counterCw = [north, west, south, east, north];
 
 // pair for snake init position
-let snake = [
+export let snake = [
     pair(10)(5),
     pair(10)(6),
     pair(10)(7),
@@ -18,66 +25,100 @@ let snake = [
 ];
 
 // pair of food position
-let food = pair(15)(15);
+export let food = pair(15)(15);
 
 // snakeEquals(a, b) { return a.x === b.x && a.y === b.y }
-const pairEq = a => b =>  fst(a) === fst(b) && snd(a) === snd(b);
+export const pairEq = a => b => fst(a) === fst(b) && snd(a) === snd(b);
 
 // snakeMove(a, b) { return a.x + b.x && a.y + b.y }
-const pairPlus = a => b =>  pair (fst(a) + fst(b)) (snd(a) + snd(b));
+export const pairPlus = a => b => pair(fst(a) + fst(b))(snd(a) + snd(b));
 
 // snakeTransition(f, p) for bound cases
-const pairMap = f => p =>  pair ( f (fst(p)) ) ( f (snd(p)) );
+export const pairMap = f => p => pair(f(fst(p)))(f(snd(p)));
 
+window.onload(() => {
+    start();
+});
 
-function changeDirection(orientation) {
+/**
+ * Set a new orientation of the snake
+ * 
+ * @param {pair} orientation The new orientation of the player
+ */
+export function changeDirection(orientation) {
     const idx = orientation.indexOf(direction);
     direction = orientation[idx + 1];
 }
 
-// catch not existing canvas or return found element
-function safeGetElementById(id) {
+/**
+ * Get a element by its id
+ * 
+ * @param {number} id The id of the element
+ * @returns The element if exists
+ */
+export function safeGetElementById(id) {
     const result = document.getElementById(id);
     return result === undefined || result === null
         ? Left("cannot find element with id " + id)
         : Right(result)
 }
 
-// print errors 
-const log = s => console.log(s);
+/**
+ * Log a message to the console
+ * 
+ * @param {string} s The message to log
+ */
+export const log = s => console.log(s);
 
-// start game or print error
-function start() {
+/**
+ * Start the game if possible
+ */
+export function start() {
     either(safeGetElementById("canvas"))
         (log)
         (startWithCanvas);
 }
 
-// init event and interval
-const startWithCanvas = canvas => {
-
+/**
+ * Start the game and init the values
+ * 
+ * @param canvas The game canvas
+ */
+export const startWithCanvas = canvas => {
     const context = canvas.getContext("2d");
 
+    // Handle the game keys
     const rightArrow = 39;
     const leftArrow = 37;
     window.onkeydown = evt => {
-        const orientation = (evt.keyCode === rightArrow) ? clockwise : countercw;
+        const orientation = (evt.keyCode === rightArrow) ? clockwise : counterCw;
         changeDirection(orientation);
     };
 
+    // Set the snake speed
     setInterval(() => {
         nextBoard();
         display(context);
     }, 1000 / 5);
 };
 
-const inBounds = max => x => {
-    if (x < 0)   { return max - 1 }
+/**
+ * Check if the element is on the board or move it on the board
+ * 
+ * @param {number} max The max game size
+ * @param {number} x The current position
+ * @returns {number}  position of the snake
+ */
+export const inBounds = max => x => {
+    if (x < 0) { return max - 1 }
     if (x >= max) { return 0 }
     return x
 };
 
-function nextBoard() {
+/**
+ * Prepare the next board after one step
+ */
+export function nextBoard() {
     const max = 20;
     const oldHead = snake[0];
 
@@ -97,7 +138,12 @@ function nextBoard() {
     snake.unshift(head);
 }
 
-function display(context) {
+/**
+ * Display the game elements
+ * 
+ * @param context The game context
+ */
+export function display(context) {
     // clear
     context.fillStyle = "black";
     context.fillRect(0, 0, canvas.width, canvas.height);
@@ -117,8 +163,12 @@ function display(context) {
     fillBox(context, food);
 }
 
-function fillBox(context, element) {
+/**
+ * Draw a game element
+ * 
+ * @param context The game context
+ * @param element The game element to fill
+ */
+export function fillBox(context, element) {
     context.fillRect(fst(element) * 20 + 1, snd(element) * 20 + 1, 18, 18);
 }
-
-
