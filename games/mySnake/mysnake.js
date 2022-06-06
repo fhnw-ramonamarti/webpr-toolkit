@@ -1,17 +1,23 @@
+// Game vars
 let direction = 0;
 let isPaused = false;
 const snake = [
-    { x: 2, y: 2, color: 'red' },
+    { x: 2, y: 2, color: 'red' }, // head
     { x: 3, y: 2, color: 'white' },
     { x: 4, y: 2, color: 'white' },
     { x: 5, y: 2, color: 'white' }
 ];
 const food = { x: 10, y: 10, color: 'green' };
 
+// Handle game
 window.onload = function () {
     const canvas = document.getElementById("canvas");
     const context = canvas.getContext("2d");
 
+    canvas.height = 400;
+    canvas.width = 400;
+
+    // Handle key events for arrows and space
     const leftArrow = 37; // 0
     const upArrow = 38; // 1
     const rightArrow = 39; // 2
@@ -31,9 +37,7 @@ window.onload = function () {
         }
     };
 
-    canvas.height = 400;
-    canvas.width = 400;
-
+    // Set game speed
     setInterval(() => {
         if (!isPaused) {
             nextBoard(context);
@@ -42,6 +46,11 @@ window.onload = function () {
     }, 1000 / 5);
 }
 
+/**
+ * Build the next board after one step
+ * 
+ * @param context The game context
+ */
 function nextBoard(context) {
     // clear
     context.fillStyle = "black";
@@ -56,6 +65,11 @@ function nextBoard(context) {
     fillBox(context, food);
 }
 
+/**
+ * 
+ * 
+ * @param context The game context
+ */
 function display(context) {
     if (snake[0].x === food.x && snake[0].y === food.y) {
         food.x = Math.floor(Math.random() * 20);
@@ -85,11 +99,20 @@ function display(context) {
     }
 }
 
+/**
+ * Fill a game element with its color
+ * 
+ * @param context The game context
+ * @param element The element to fill
+ */
 function fillBox(context, element) {
     context.fillStyle = element.color;
     context.fillRect(element.x * 20 + 1, element.y * 20 + 1, 18, 18);
 }
 
+/**
+ * Reset the whole game and al variables
+ */
 function reset() {
     direction = 0;
     isPaused = false;
@@ -101,11 +124,18 @@ function reset() {
     food = { x: 10, y: 10, color: 'green' };
 }
 
-function contains(snakeBody, head){
+/**
+ * Whether the element have the same position
+ * 
+ * @param snakeBody The players body
+ * @param head The players head
+ * @returns true if elements have same position
+ */
+function contains(snakeBody, head) {
     let same = false;
     for (let i = 0; i < snakeBody.length; i++) {
-        same = snakeBody[i].x === head.x &&  snakeBody[i].y === head.y;
-        if (same){
+        same = snakeBody[i].x === head.x && snakeBody[i].y === head.y;
+        if (same) {
             break;
         }
     }
