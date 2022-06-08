@@ -11,13 +11,13 @@ export const east = pair(1)(0);
 export const south = pair(0)(1);
 export const west = pair(-1)(0);
 
-export let direction = north;
+let direction = north;
 
 export const clockwise = [north, east, south, west, north];
 export const counterCw = [north, west, south, east, north];
 
 // pair for snake init position
-export let snake = [
+let snake = [
     pair(10)(5),
     pair(10)(6),
     pair(10)(7),
@@ -25,7 +25,7 @@ export let snake = [
 ];
 
 // pair of food position
-export let food = pair(15)(15);
+let food = pair(15)(15);
 
 // snakeEquals(a, b) { return a.x === b.x && a.y === b.y }
 export const pairEq = a => b => fst(a) === fst(b) && snd(a) === snd(b);
