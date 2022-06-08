@@ -14,7 +14,7 @@ Important: JS has no compiler!
 
 ```javascript
 function foo(parameter1, parameter2) {
-  /* code */
+    /* code */
 }
 ```
 
@@ -25,12 +25,14 @@ foo(argument1, argument2);
 ```
 
 \
-**Function calls**: Functions can be called with every amount of parameters. If there are too many arguments passed the first few are use if necessary. If there are less arguments passed the last few parameters with no value are undefined.
+**Function calls**: Functions can be called with every amount of parameters. If there are too many arguments passed the
+first few are use if necessary. If there are less arguments passed the last few parameters with no value are undefined.
 
 ```javascript
 function foo(param) {
-  /* code */
+    /* code */
 }
+
 foo(); // param is undefined
 foo(arg); // param is arg
 foo(arg1, arg2); // param is arg1 and arg2 is ignored
@@ -40,14 +42,16 @@ foo(arg1, arg2); // param is arg1 and arg2 is ignored
 
 ```javascript
 function foo() {
-  /* code without return value */
+    /* code without return value */
 }
+
 let var1 = foo(); // var1 is undefined
 
 function foo() {
-  /* code */
-  return value;
+    /* code */
+    return value;
 }
+
 let var2 = foo(); // var2 has a value
 ```
 
@@ -57,7 +61,7 @@ let var2 = foo(); // var2 has a value
 ```javascript
 // definition new function
 let func = function (param1, param2) {
-  /* code */
+    /* code */
 };
 
 // definition used function
@@ -70,18 +74,21 @@ func(arg1, arg2);
 func2;
 ```
 
-**Override**: Same named functions/variables override each other even if the parameters are different. Naming can only reference one thing.
+**Override**: Same named functions/variables override each other even if the parameters are different. Naming can only
+reference one thing.
 
 ```javascript
 // here is no foo defined
 function foo() {
-  /* code */
+    /* code */
 }
+
 foo(); // here foo no parameter is called
 
 function foo(param) {
-  /* code */
+    /* code */
 }
+
 foo(); // here foo one parameter is called
 
 let foo = value;
@@ -95,7 +102,7 @@ foo(); // here foo as a constant is called with error is not a function
 // definition
 let foo = (param1, param2) => expression;
 let foo2 = (param) => {
-  /* code block */
+    /* code block */
 };
 ```
 
@@ -114,6 +121,7 @@ foo(argument1)(argument2);
 **Canvas**:
 
 ```html
+
 <canvas id="canvas"></canvas>
 ```
 
@@ -134,7 +142,7 @@ const upArrow = 38;
 const rightArrow = 39;
 const downArrow = 40;
 window.onkeydown = (evt) => {
-  /* code with keys */
+    /* code with keys */
 };
 ```
 
@@ -143,7 +151,7 @@ window.onkeydown = (evt) => {
 
 ```javascript
 setInterval(() => {
-  /* repeated code */
+    /* repeated code */
 }, 1000 / 5);
 ```
 
@@ -155,13 +163,16 @@ setInterval(() => {
 
 ```javascript
 // definition
-expression ::= variable     // identifier
-  | expression expression   // application
-  | λ variable . expression // abstraction
-  | (expression)            // grouping
+expression:: = variable     // identifier
+    | expression
+expression   // application
+| λ
+variable.expression // abstraction
+| (expression)            // grouping
 
 // abstraction
-λ parameters . expression // lambda notation
+λ
+parameters.expression // lambda notation
 parameters => expression // js notation
 ```
 
@@ -170,7 +181,8 @@ parameters => expression // js notation
 
 ```javascript
 ƒab = f(a)(b)
-(ƒa)b = (f(a))(b)
+(ƒa)
+b = (f(a))(b)
 ƒ(ab) = f(a(b))
 ```
 
@@ -178,16 +190,24 @@ parameters => expression // js notation
 
 ```javascript
 λa.bx = a => b(x)
-(λa.b)x = (a => b)(x)
+(λa.b)
+x = (a => b)(x)
 λa.λb.x = λab.x = a => b => x
 ```
 
-**β-reduction**: replace variables on the left side with expression form the right side. Start from the inside and go out
+**β-reduction**: replace variables on the left side with expression form the right side. Start from the inside and go
+out
 
 ```javascript
-((λa.a)λb.λc.b)(x)λe.ƒ
-(λb.λc.b)(x)λe.ƒ
-(λc.x)λe.ƒ
+((λa.a)
+λb.λc.b
+)
+(x)
+λe.ƒ
+(λb.λc.b)(x)
+λe.ƒ
+(λc.x)
+λe.ƒ
 x // beta normal form
 ```
 
@@ -221,8 +241,8 @@ x // beta normal form
 **Console outputs**: `console.__(message)`
 
 - log: normal output
-  - string concat with +: all one string output
-  - parameter passing: split by '–' in output
+    - string concat with +: all one string output
+    - parameter passing: split by '–' in output
 - error ❗: Red error message, has filter
 - warn ⚠: Yellow warning message, has filter
 - info ℹ: (Blue) information, has filter
@@ -257,17 +277,21 @@ const x = 5; // locale, immutable
 
 ```javascript
 // split function definition and call
-function foo() {...};
+function foo() {...
+};
 foo();
 
 // named function definition with direct call
-(function foo() {...})();
+(function foo() {...
+})();
 
 // unnamed function definition with direct call
-(function() {...})();
+(function () {...
+})();
 
 // lambda definition with direct call
-( () => {...})();
+(() => {...
+})();
 ```
 
 ### Lambda calculus
@@ -275,21 +299,29 @@ foo();
 **α (alpha)**: Rename parameter => translation
 
 ```javascript
-const x => x;
+const x
+=>
+x;
 // or
-const y => y;
+const y
+=>
+y;
 ```
 
 **β (beta)**: Apply argument => reduction, from left to right
 
 ```javascript
 ((f) => (x) => f(x))(id)(1)
-// replace f on the left with id from first argument
-((x) => id(x))(1)
+    // replace f on the left with id from first argument
+    ((x) => id(x))(1)
 // replace x on the left with 1 from first (next) argument
 id(1)
-// replace id with its definition
-(x) => x)(1);
+    // replace id with its definition
+    (x)
+=>
+x
+)
+(1);
 // replace x on the left with 1 from first argument
 1;
 ```
@@ -334,7 +366,8 @@ plus;
 - Addition: `ADD = λnk.n SUCC k` with javascript `n => k => n(SUCC(k))` for $n + k$
 - Multiplication: `MULT = B = λnkƒ.n(kƒ)` with javascript `n => k => n(k(f))` for $n * k$
 - Power: `POW = λnk.kn` with javascript `n => k => k(n)` for $n^k$
-- Predecessor: `PRED = λn.FST(nΦ(PAIR N0 N0))` with javascript `n => FST(n(PHI)(PAIR(N0)(N0)))` for $number-1$ (`number--`)
+- Predecessor: `PRED = λn.FST(nΦ(PAIR N0 N0))` with javascript `n => FST(n(PHI)(PAIR(N0)(N0)))` for
+  $number-1$ (`number--`)
 - Subtraction: `SUB = λnk.k PRED n` with javascript `n => k => k(PRED)(n)` for $n - k$
 
 **Equality functions**:
@@ -372,10 +405,8 @@ const LEVEL_DEBUG = 4;
 let logLevel = LEVEL_LOG;
 ```
 
-long running ausgeführt vor filterung von log level
-strict evaluation
-verzögerung durch funktionsübergabe statt wert übergabe
-auftuf in funktiontion selbst nach if prüfung log level
+long running ausgeführt vor filterung von log level strict evaluation verzögerung durch funktionsübergabe statt wert
+übergabe auftuf in funktiontion selbst nach if prüfung log level
 
 ### Lambda
 
@@ -406,17 +437,17 @@ const Y = M(M);
 
 // reduction of Y
 Y = M(M)(
-  // replace M
-  (ƒ) => ƒ(ƒ)((ƒ) => f(ƒ))
+    // replace M
+    (ƒ) => ƒ(ƒ)((ƒ) => f(ƒ))
 )(
-  // α transition - second () ƒ to g
-  (ƒ) => ƒ(ƒ)((g) => g(g))
+    // α transition - second () ƒ to g
+    (ƒ) => ƒ(ƒ)((g) => g(g))
 )(
-  // β reduction - g(g) for all ƒ in first ()
-  (g) => g(g)((g) => g(g))
+    // β reduction - g(g) for all ƒ in first ()
+    (g) => g(g)((g) => g(g))
 )(
-  // α transition - all g to ƒ
-  (ƒ) => ƒ(ƒ)((ƒ) => f(ƒ))
+    // α transition - all g to ƒ
+    (ƒ) => ƒ(ƒ)((ƒ) => f(ƒ))
 );
 ```
 
@@ -549,7 +580,7 @@ listVar.reduce(plus, 0);
 ```javascript
 // definition
 var varName = function optionalName() {
-  // do sth
+    // do sth
 };
 
 // usage
@@ -563,10 +594,10 @@ callbackFunction(varName);
 ```javascript
 // definition
 const func = (function (paramsOuter) {
-  let localVar = value;
-  return function (paramsInner) {
-    // do sth
-  };
+    let localVar = value;
+    return function (paramsInner) {
+        // do sth
+    };
 })(argsOuter);
 
 // usage
@@ -578,12 +609,13 @@ func(argsInner);
 ```javascript
 // definition
 function callbackFunction(callbackFunc) {
-  // do sth
+    // do sth
 }
+
 // or
 function callbackFunction2() {
-  // do sth
-  return func;
+    // do sth
+    return func;
 }
 
 // usage
@@ -597,7 +629,7 @@ callbackFunction2()(argsForFunc);
 ```javascript
 // definition
 function Object() {
-  this.attribute = value;
+    this.attribute = value;
 }
 
 // usage
@@ -613,12 +645,13 @@ const obj = new Object();
 
 ```javascript
 console
-  .log() // no ;
-  [(1, 2, 3)].map((x) => console.log(x));
+    .log() // no ;
+    [(1, 2, 3)].map((x) => console.log(x));
 // outputs error undefined not an object
 ```
 
-Reason: console.log returns nothing (undefined) and without semicolon line are sicked together as one and ants to call 3 index of undefined\
+Reason: console.log returns nothing (undefined) and without semicolon line are sicked together as one and ants to call 3
+index of undefined\
 
 ### Tips and Tricks strings and escaping
 
@@ -647,7 +680,8 @@ let a = 5;
 // as a string with escaping
 '\\bsome expression\\s \\\\'
 // as a regex
-/\bsome expression\s \\/
+/\bsome
+expression\s \\/
 ```
 
 **String constructor**: creates a string from given parameter and escapes if necessary
@@ -670,8 +704,8 @@ String(/\bsome expression\s \\/);
 ```javascript
 // important spit </script> with string concat to not close current script tag
 ["function"].forEach((name) => {
-  document.writeln(`<script src="${name}.js"><` + `/script>"`);
-  document.writeln(`<script src="${name}Test.js"><` + `/script>"`);
+    document.writeln(`<script src="${name}.js"><` + `/script>"`);
+    document.writeln(`<script src="${name}Test.js"><` + `/script>"`);
 });
 ```
 
@@ -683,7 +717,8 @@ eval(functionVar);
 ```
 
 **Functions**: literal `parameters => codeBlock`, functional `Function(parameters, codeBlock)`\
-**Side effects**: Function() change values of (global) variables, visible that Function() was called => should not happen\
+**Side effects**: Function() change values of (global) variables, visible that Function() was called => should not
+happen\
 **Sandbox**: secure evaluating scripts only in browsers given\
 
 **Usage**:
@@ -698,22 +733,22 @@ eval(functionVar);
 ### this decisions
 
 - functions with 'new'
-  - yes -> this is new empty object
-  - no -> function with dot (object.func()) called
-    - yes -> this is object before dot
-    - no -> this is global object window
+    - yes -> this is new empty object
+    - no -> function with dot (object.func()) called
+        - yes -> this is object before dot
+        - no -> this is global object window
 
 ### this in JS
 
 - Object methods use object attributes: function do() { this.attribute }
-  - functions cannot access attribute without this. prefix
-  - this refers to object name when calling objectName.attribute
+    - functions cannot access attribute without this. prefix
+    - this refers to object name when calling objectName.attribute
 - Problem when using these functions as callback
-  - 'this' information gets lost
+    - 'this' information gets lost
 - Solve callback issue with binding this
-  - old style: this.func.bind(this); or save this in var and callback in anonymous function
-  - other style: func.call(obj) / func.apply(obj) to pass object for non dot functions
-  - new style: () => this.func; (fat arrow function automatic bind)
+    - old style: this.func.bind(this); or save this in var and callback in anonymous function
+    - other style: func.call(obj) / func.apply(obj) to pass object for non dot functions
+    - new style: () => this.func; (fat arrow function automatic bind)
 
 ## Week 6 - Lesson
 
@@ -723,8 +758,8 @@ eval(functionVar);
 
 - string as parameter: string gets split in characters as elements
 - object with length as parameter: fill array with length undefined elements
-  - map result with function: to fill elements with values
-  - callback function as second parameter: to fill elements with values easier, callback is optional
+    - map result with function: to fill elements with values
+    - callback function as second parameter: to fill elements with values easier, callback is optional
 
 ### Objects
 
@@ -733,12 +768,18 @@ eval(functionVar);
 - Open dynamic object: not safe because not obvious structure (this not clear)
 
 ```javascript
-const obj {
-  attribute1: value1,
-  attribute2: value2,
-  getName: function() {
-    return this.attribute1 + " " + this.attribute2;
-  }
+const obj
+{
+    attribute1: value1,
+        attribute2
+:
+    value2,
+        getName
+:
+
+    function () {
+        return this.attribute1 + " " + this.attribute2;
+    }
 }
 ```
 
@@ -746,14 +787,15 @@ const obj {
 
 ```javascript
 function Class(param1, param2) {
-  let attribute1 = param1;
-  let attribute2 = param2;
-  return {
-    getName: function () {
-      return attribute1 + " " + attribute2;
-    },
-  };
+    let attribute1 = param1;
+    let attribute2 = param2;
+    return {
+        getName: function () {
+            return attribute1 + " " + attribute2;
+        },
+    };
 }
+
 // usage: Class(value1, value2)
 ```
 
@@ -761,14 +803,15 @@ function Class(param1, param2) {
 
 ```javascript
 const Class = (() => {
-  function Class(param1, param2) {
-    this.attribute1 = param1;
-    this.attribute2 = param2;
-  }
-  Class.prototype.getName = function () {
-    return this.attribute1 + " " + this.attribute2;
-  };
-  return Class;
+    function Class(param1, param2) {
+        this.attribute1 = param1;
+        this.attribute2 = param2;
+    }
+
+    Class.prototype.getName = function () {
+        return this.attribute1 + " " + this.attribute2;
+    };
+    return Class;
 })();
 // usage: new Class(value1, value2)
 // obj instanceof Class possible
@@ -788,30 +831,31 @@ const Class = (() => {
 let x = 1;
 
 // long version
-const o = { x: x };
+const o = {x: x};
 
 // short
-const obj = { x };
+const obj = {x};
 
 // usage
 obj.x;
 ```
 
-**Objects and functions**: if function name (as a property) is same as property name, property name and function keyword can be left away
+**Objects and functions**: if function name (as a property) is same as property name, property name and function keyword
+can be left away
 
 ```javascript
 // long version
 const o = {
-  foo: function foo() {
-    return 1;
-  },
+    foo: function foo() {
+        return 1;
+    },
 };
 
 // short
 const obj = {
-  foo() {
-    return 1;
-  },
+    foo() {
+        return 1;
+    },
 };
 
 // call/ usage
@@ -826,12 +870,13 @@ obj.foo();
 
 ```javascript
 class ClassName {
-  constructor(parameter) {
-    this.property = parameter;
-  }
-  functionName(parameters) {
-    // do sth
-  }
+    constructor(parameter) {
+        this.property = parameter;
+    }
+
+    functionName(parameters) {
+        // do sth
+    }
 }
 
 // usage
@@ -846,13 +891,14 @@ const p = new ClassName(value);
 
 ```javascript
 class SubClass extends ClassName {
-  constructor(parameter, parameter2) {
-    super(parameter);
-    this.subProperty = parameter2;
-  }
-  subFunctionName(parameters) {
-    // do things
-  }
+    constructor(parameter, parameter2) {
+        super(parameter);
+        this.subProperty = parameter2;
+    }
+
+    subFunctionName(parameters) {
+        // do things
+    }
 }
 
 // usage
@@ -891,22 +937,24 @@ const f = x => /* do sth */;
 const g = x => /* do sth */;
 
 const composition = x => {
-  return f(g(x));
+    return f(g(x));
 };
 composition(arg);
 // or with a promise
 Promise.resolve(arg)
-  .then(f)
-  .then(g)
-  .then(val => /* val contains result */);
+    .then(f)
+    .then(g)
+    .then(val => /* val contains result */);
 ```
 
 Rule: chaining is composing\
 \
-**Pipeline**: execute functions after each other and use output as next argument. Syntax without function keyword and arrow (=>)
+**Pipeline**: execute functions after each other and use output as next argument. Syntax without function keyword and
+arrow (=>)
 
 ```javascript
 import pipe from "lodash/fp/flow";
+
 const compose = pipe(g, f);
 compose(arg);
 ```
@@ -923,12 +971,13 @@ Rules:
 
 ```javascript
 const fullName = {
-  firstName,
-  lastName,
+    firstName,
+    lastName,
 };
 ```
 
-**Compositional relationships**: delegation (state, strategy, and visitor patterns), acquaintance (referenced objects), aggregation (DOM children)
+**Compositional relationships**: delegation (state, strategy, and visitor patterns), acquaintance (referenced objects),
+aggregation (DOM children)
 
 ## Week 8 - Lesson
 
@@ -940,7 +989,7 @@ const fullName = {
 let x = 1;
 let y = 2;
 
-console.log({ x, y });
+console.log({x, y});
 // output { x: 1, y: 2 }
 ```
 
@@ -952,7 +1001,7 @@ console.log({ x, y });
 let foo = (param) => console.log(param.x, param.y);
 
 // destructor version
-let foo = ({ x, y }) => console.log(x, y);
+let foo = ({x, y}) => console.log(x, y);
 ```
 
 ### Moves
@@ -982,7 +1031,8 @@ let foo = ({ x, y }) => console.log(x, y);
 
 ### Tips and tricks JS doc
 
-**Parameter types**: default type is any. The definition of the specific type can be added in the JS doc, so that other arguments are not allowed any more.
+**Parameter types**: default type is any. The definition of the specific type can be added in the JS doc, so that other
+arguments are not allowed any more.
 
 ```javascript
 /**
@@ -1000,10 +1050,11 @@ Description:
 
 - `@function`: defines that the following code is a function
 - `@param`: defines the parameter and with `{type}` the allowed type(s) of the arguments
-  - `{!type}`: the parameter is mandatory of this type
-  - `{type | type2}`: the parameter has to fullfil one type of the listed
-  - `{'value' | 'value2'}`: the parameter can only be one of the values
-  - `{...type}`: varargs type to give multiple arguments to the function, which can be accessed by the 'arguments' array
+    - `{!type}`: the parameter is mandatory of this type
+    - `{type | type2}`: the parameter has to fullfil one type of the listed
+    - `{'value' | 'value2'}`: the parameter can only be one of the values
+    - `{...type}`: varargs type to give multiple arguments to the function, which can be accessed by the 'arguments'
+      array
 - `@return`: defines the value calculated with a type (without {})
 - `@example`: show how the usage of the code
 - `@template`: is used if the type T of parameter/return should be generic
@@ -1020,24 +1071,24 @@ Pattern - **High order function**: do prework -> do callback -> do postwork. Use
 ```javascript
 // example file
 const fileHandle = (name, callback) => {
-  // open file
-  try {
-    callback(file); // read or write file
-  } catch (e) {
-    // handle exception
-  }
-  // close file
+    // open file
+    try {
+        callback(file); // read or write file
+    } catch (e) {
+        // handle exception
+    }
+    // close file
 };
 
 // example database
 const databaseHandle = (name, callback) => {
-  // open database connection
-  try {
-    callback(database); // execute query statement
-  } catch (e) {
-    // handle exception
-  }
-  // close database connection
+    // open database connection
+    try {
+        callback(database); // execute query statement
+    } catch (e) {
+        // handle exception
+    }
+    // close database connection
 };
 ```
 
@@ -1045,24 +1096,26 @@ const databaseHandle = (name, callback) => {
 **Milestones**: 0. running program with reasonable test amount which all run ok
 
 1. reorganize, separate unessential and improve clarity (responsibilities, dependencies, sequence) with abstraction
-2. separate todo operations from todo display -> improve clarity of one single todo change / many (list of) todo change with observable list usage
+2. separate todo operations from todo display -> improve clarity of one single todo change / many (list of) todo change
+   with observable list usage
 3. model-view-control separated
 4. all views separated
 
-**Observable**: used to observe values by listening to changes and notify all listeners. Collection examples are array, list and set.
+**Observable**: used to observe values by listening to changes and notify all listeners. Collection examples are array,
+list and set.
 
 ```javascript
 const Observable = (value) => {
-  const listeners = [];
-  return {
-    onChange: (callback) => listeners.push(callback),
-    getValue: () => value,
-    setValue: (val) => {
-      if (value === val) return;
-      value = val;
-      listeners.forEach((notify) => notify(val));
-    },
-  };
+    const listeners = [];
+    return {
+        onChange: (callback) => listeners.push(callback),
+        getValue: () => value,
+        setValue: (val) => {
+            if (value === val) return;
+            value = val;
+            listeners.forEach((notify) => notify(val));
+        },
+    };
 };
 ```
 
@@ -1107,11 +1160,12 @@ array.splice(startIndex, numberElements, ...elements);
 
 ### Async
 
-**Callback**: predefine an event handler for a later use. The function will passed values to another function when the event is triggered to execute the code.
+**Callback**: predefine an event handler for a later use. The function will passed values to another function when the
+event is triggered to execute the code.
 
 ```javascript
 setInterval(() => {
-  // doSomething();
+    // doSomething();
 }, 1000 / 5);
 ```
 
@@ -1119,30 +1173,32 @@ Events: use callbacks to execute code when an event is triggered. Possible event
 
 ```javascript
 window.onkeydown = (event) => {
-  // doSomething();
+    // doSomething();
 };
 ```
 
-**Promise** (Thenable): define that code will come to a result at some time. It has different state starting with pending. A Promise callback always returns a further promise.
+**Promise** (Thenable): define that code will come to a result at some time. It has different state starting with
+pending. A Promise callback always returns a further promise.
 
 ```javascript
 fetch(/* async task */)
-  .then((response) => /* code executed successfully */)
-  .catch((err) => /* code threw error */);
+    .then((response) => /* code executed successfully */)
+    .catch((err) => /* code threw error */);
 
 // other notation
 const processEven = i => new Promise(
-  (resolve, reject) => {
-    if (i % 2 === 0) {
-      resolve(i);
-    } else {
-      reject(i);
+    (resolve, reject) => {
+        if (i % 2 === 0) {
+            resolve(i);
+        } else {
+            reject(i);
+        }
     }
-  }
 );
 ```
 
-Auto promotion: non promise return values are automatically saved in the parameter variable, and gets wrapped in a new promise. 
+Auto promotion: non promise return values are automatically saved in the parameter variable, and gets wrapped in a new
+promise.
 
 **Synchronous**: all tasks are executed in the code order after each other.
 
@@ -1155,8 +1211,8 @@ Auto promotion: non promise return values are automatically saved in the paramet
 
 ```javascript
 const foo = async (i) => {
-  const x = await processEven(i).catch((err) => err);
-  console.log("foo: " + x);
+    const x = await processEven(i).catch((err) => err);
+    console.log("foo: " + x);
 };
 ```
 
@@ -1185,10 +1241,12 @@ window.deviceOrientation().then(console.log);
 
 1. No coordination - all actions independent => nothing to do
 2. Sequence (side effects) - next action only starts when previous is finished => delegate coordination with scheduler
-3. Dependency on former results - two actions depend on the same action which only should be executed once => implicit coordination with data flow variable
+3. Dependency on former results - two actions depend on the same action which only should be executed once => implicit
+   coordination with data flow variable
 
 **Scheduler**: Queue of functions which are locked until the callbacks unlock them\
-**Data flow variables**: Set the variable value if not already set. Lazy mode by not setting the value but returning it in a function.
+**Data flow variables**: Set the variable value if not already set. Lazy mode by not setting the value but returning it
+in a function.
 
 ## Week 12 - Lesson
 
@@ -1209,8 +1267,8 @@ Reduce trick with filter: sum of all odd numbers is a square number.
 
 // square numbers
 [1, 2, 3, 4]
-  .filter((it, inx) => inx % 2 !== 0)
-  .reduce((acc, cur) => acc + cur, 0);
+    .filter((it, inx) => inx % 2 !== 0)
+    .reduce((acc, cur) => acc + cur, 0);
 ```
 
 **Array check functions**: check the content of an array.
@@ -1229,7 +1287,7 @@ Reduce trick with filter: sum of all odd numbers is a square number.
 
 - Avoiding errors: globals, scoping, namespace
 - Distinction: packet manager, build tool
-  - Legacy: Module systems, module loader/ bundler
+    - Legacy: Module systems, module loader/ bundler
 - Properties: use of `import` or `export`
 - Include: async, transitive, with URI format recommended
 
@@ -1238,8 +1296,10 @@ Reduce trick with filter: sum of all odd numbers is a square number.
 <script src="relativePath/file.js" type="module"></script>
 <!-- or -->
 <script>
-  // promise value
-  import("relativePath/file.js").then( mod => ... );
+    // promise value
+    import("relativePath/file.js").then(mod =>
+    ... )
+    ;
 </script>
 ```
 
@@ -1249,30 +1309,79 @@ Reduce trick with filter: sum of all odd numbers is a square number.
 import "module-name";
 import defaultExport from "module-name";
 import * as name from "module-name";
-import { export } from "module-name";
-import { export as alias } from "module-name";
-import { export1 , export2 } from "module-name";
+import {export} from "module-name";
+import {export as alias} from "module-name";
+import {export1, export2} from "module-name";
+
 var promise = import("module-name");
 ```
 
 **Export variants**: all read-only and singletons
 
 ```javascript
-export { name1, name2, ..., nameN };
-export function FunctionName(){...}
+export {name1, name2,
+...,
+nameN
+}
+;
+
+export function FunctionName() {...
+}
+
 export const name1, name2, ..., nameN;
 export default expression;
-export { name1 as default, ... };
-export * from ...;
-export { name1, name2, ..., nameN } from ...;
+export {name1 as default,
+...
+}
+;
+export * from
+...
+;
+export {name1, name2,
+...,
+nameN
+}
+from
+...
+;
 ```
 
 **Implicit `use strict`**: exports are read-only, no global objects/this/ hoisting\
 **Implicit `defer`**: `document.writeln()` no more useful\
-**SOP**: Same origin policy, file system as a `null` origin, all js files should come from the same project directory path.
+**SOP**: Same origin policy, file system as a `null` origin, all js files should come from the same project directory
+path.
+
 - Possible ways to avoid: browsers dev mode, local webserver, bundler to execute sync, browser in debug mode
 
 ## Week 13 - Lesson
 
-### Transpilers
+### Tips & tricks iterators
 
+**Iterator**: is a function. Deconstructable like an array.
+
+```javascript
+const nodeList = document.querySelectorAll(selector);
+const [elem1, e2, e3, e4] = nodeList;
+[...nodeList] // node list elements as an array
+for (const e of nodeList) {
+    // code to handle the elems of nodeList
+}
+for (const e in nodeList) {
+    // code to handle the properties of nodeList
+}
+```
+
+**Function arguments**: only possible for functions with function keyword. Lists all the params as an iterator.
+
+```javascript
+function foo() {
+    return arguments;
+}
+```
+
+## Extras
+
+### Modules of Toolkit
+
+- snake
+- hacking
