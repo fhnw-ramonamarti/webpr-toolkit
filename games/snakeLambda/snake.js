@@ -3,7 +3,7 @@
  */
 
 // imports
-import { fst, snd, pair, Left, Right, either } from "./lambda";
+import {fst, snd, pair, Left, Right, either} from "./lambda.js";
 
 // pairs of x and y delta for directions
 export const north = pair(0)(-1);
@@ -36,13 +36,13 @@ export const pairPlus = a => b => pair(fst(a) + fst(b))(snd(a) + snd(b));
 // snakeTransition(f, p) for bound cases
 export const pairMap = f => p => pair(f(fst(p)))(f(snd(p)));
 
-window.onload(() => {
+window.onload = () => {
     start();
-});
+};
 
 /**
  * Set a new orientation of the snake
- * 
+ *
  * @param {pair} orientation The new orientation of the player
  */
 export function changeDirection(orientation) {
@@ -52,7 +52,7 @@ export function changeDirection(orientation) {
 
 /**
  * Get a element by its id
- * 
+ *
  * @param {number} id The id of the element
  * @returns The element if exists
  */
@@ -65,7 +65,7 @@ export function safeGetElementById(id) {
 
 /**
  * Log a message to the console
- * 
+ *
  * @param {string} s The message to log
  */
 export const log = s => console.log(s);
@@ -75,13 +75,13 @@ export const log = s => console.log(s);
  */
 export function start() {
     either(safeGetElementById("canvas"))
-        (log)
-        (startWithCanvas);
+    (log)
+    (startWithCanvas);
 }
 
 /**
  * Start the game and init the values
- * 
+ *
  * @param canvas The game canvas
  */
 export const startWithCanvas = canvas => {
@@ -104,14 +104,18 @@ export const startWithCanvas = canvas => {
 
 /**
  * Check if the element is on the board or move it on the board
- * 
+ *
  * @param {number} max The max game size
  * @param {number} x The current position
  * @returns {number}  position of the snake
  */
 export const inBounds = max => x => {
-    if (x < 0) { return max - 1 }
-    if (x >= max) { return 0 }
+    if (x < 0) {
+        return max - 1
+    }
+    if (x >= max) {
+        return 0
+    }
     return x
 };
 
@@ -140,7 +144,7 @@ export function nextBoard() {
 
 /**
  * Display the game elements
- * 
+ *
  * @param context The game context
  */
 export function display(context) {
@@ -165,7 +169,7 @@ export function display(context) {
 
 /**
  * Draw a game element
- * 
+ *
  * @param context The game context
  * @param element The game element to fill
  */
